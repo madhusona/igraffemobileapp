@@ -2,6 +2,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../components/Header.dart';
+import '../components/nav.dart';
+import '../components/timeline.dart';
 import '../constants.dart';
 
 class PatientDetail extends StatelessWidget {
@@ -52,18 +55,27 @@ class _SuccessTimelineState extends State<_SuccessTimeline> {
         ),
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.transparent,
+            backgroundColor: docbarbk1,
             body: Center(
               child: Column(
                 children: <Widget>[
-                  _Header(),
-                  _nav(),
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: <Widget>[_TimelineSteps(steps: _steps)],
-                    ),
+                  Header(
+                    title:'Dr First name'
                   ),
-                  const SizedBox(height: 8),
+                  nav(
+                    left:'Back',
+                    right:'Patient Profile',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    onPressed1:() {
+                      Navigator.of(context).pushNamed('/patientprofile',arguments:"checking");
+                    },
+                    visible: true,
+                  ),
+                  Expanded(child: timeline()),
+
+
                 ],
               ),
             ),
@@ -256,97 +268,7 @@ class _TimelineStepsChild extends StatelessWidget {
   }
 }
 
-class _Header extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Text(
-              'Doctor Name',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.architectsDaughter(
-                fontSize: 26,
-                color: const Color(0xFFB96320),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
 
-          ),
-
-        ],
-      ),
-
-    );
-  }
-}
-
-class _nav extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          FlatButton(
-            color: Colors.blue,
-            textColor: Colors.white,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: EdgeInsets.all(4.0),
-            splashColor: Colors.blueAccent,
-
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.arrow_back),
-                Text(
-                  "Back",
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ],
-            )
-
-          ),
-          FlatButton(
-            color: Colors.blue,
-            textColor: Colors.white,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.black,
-            padding: EdgeInsets.all(8.0),
-            splashColor: Colors.blueAccent,
-            onPressed: () {
-              Navigator.of(context).pushNamed('/patientprofile',arguments:"checking");
-            },
-              child: Row(
-                children: <Widget>[
-
-                  Text(
-                    "Patient Profile",
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                  Icon(Icons.arrow_forward),
-                ],
-              )
-          )
-        ],
-      ),
-    );
-  }
-}
 
 
 class Step {

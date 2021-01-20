@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
+import '../components/Header.dart';
+import '../components/nav.dart';
+import '../constants.dart';
 
 class Patientprofile extends StatelessWidget {
   final String data;
@@ -12,77 +15,50 @@ class Patientprofile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+      decoration: const BoxDecoration(
+        color: Colors.white,
 
-        ),
-    child: Theme(
-    data: Theme.of(context).copyWith(
-    //accentColor: const Color(0xFFFCB69F).withOpacity(0.2),
-    accentColor: docbarbk,
-    ),
-       child: SafeArea(
-           child: Scaffold(
-               backgroundColor: Colors.transparent,
-               appBar: AppBar(
-                 title: Text("Doctor Name")
-               ),
-               body:Center(
-                   child: Column(
-                     children: <Widget>[
-                       _Header(),
-                       _nav(),
-                       _reports(),
-                     ],
-                   )
-               )
-
-           )
-       )
-    ),
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Text(
-              'Doctor Name',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.architectsDaughter(
-                fontSize: 26,
-                color: const Color(0xFFB96320),
-                fontWeight: FontWeight.bold,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          //accentColor: const Color(0xFFFCB69F).withOpacity(0.2),
+          accentColor: docbarbk,
+        ),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: docbarbk1,
+            body: Center(
+              child: Column(
+                children: <Widget>[
+                  Header(
+                      title:'Dr First name'
+                  ),
+                  nav(
+                    left:'Back',
+                    right:'Patient Profile',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+
+                    visible: false,
+                  ),
+                  _comm(),
+                  _reports(),
+                  _address(),
+
+
+                ],
               ),
             ),
-
-
           ),
-          Container(
-            child: CircleAvatar(
-              backgroundImage: NetworkImage('https://4.img-dpreview.com/files/p/E~C667x0S5333x4000T1200x900~articles/3925134721/0266554465.jpeg'),
-            )
-          )
-
-        ],
+        ),
       ),
 
     );
   }
 }
 
-class _nav extends StatelessWidget {
+class _comm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,37 +74,87 @@ class _nav extends StatelessWidget {
             child: Icon(
               Icons.edit,
               size: 35.0,
+              color: buttonColor1,
             ),
             padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
+            shape: CircleBorder(
+                side: BorderSide(color: buttonColor1)
+
+            )
           ),
           RawMaterialButton(
             onPressed: () {},
             elevation: 2.0,
-            fillColor: Colors.redAccent,
+            fillColor: Colors.white,
             child: Icon(
               Icons.call,
               size: 35.0,
+              color: buttonColor1,
             ),
             padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
+            shape: CircleBorder(
+                side: BorderSide(color: buttonColor1)
+            ),
           ),
           RawMaterialButton(
             onPressed: () {},
             elevation: 2.0,
-            fillColor: Colors.redAccent,
+            fillColor: Colors.white,
             child: Icon(
               Icons.message,
               size: 35.0,
+              color: buttonColor1,
             ),
             padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
-          ),
+            shape: CircleBorder(
+                side: BorderSide(color: buttonColor1)
+            ),
+          )
         ],
       ),
     );
   }
 }
+
+class _address extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+   child: Card(
+     child: Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       mainAxisAlignment: MainAxisAlignment.center,
+       children: <Widget>[
+         ListTile(
+           title: const Text('Contact Details'),
+           subtitle: Text(
+             'Personal Details',
+             style: TextStyle(color: Colors.black.withOpacity(0.6)),
+           ),
+         ),
+         Divider(),
+         ListTile(
+           title: const Text('Contact Details'),
+         ),
+
+         Divider(),
+         ListTile(
+           title: const Text('Contact Details'),
+         ),
+         Divider(),
+         ListTile(
+           title: const Text('Contact Details'),
+         ),
+         Divider(),
+
+       ],
+     ),
+   ),
+    );
+  }
+}
+
 
 class _reports extends StatelessWidget {
   @override
@@ -140,8 +166,8 @@ class _reports extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           FlatButton(
-              color: Colors.blue,
-              textColor: Colors.white,
+             // color: Colors.blue,
+              textColor: buttonColor1,
               disabledColor: Colors.grey,
               disabledTextColor: Colors.black,
               padding: EdgeInsets.all(4.0),
@@ -163,8 +189,8 @@ class _reports extends StatelessWidget {
 
           ),
           FlatButton(
-              color: Colors.blue,
-              textColor: Colors.white,
+             // color: Colors.blue,
+              textColor: buttonColor1,
               disabledColor: Colors.grey,
               disabledTextColor: Colors.black,
               padding: EdgeInsets.all(8.0),

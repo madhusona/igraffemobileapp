@@ -16,7 +16,7 @@ final String data;
         length: choices.length,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.brown[100],
             iconTheme: IconThemeData(
               color: buttonColor1, //change your color here
             ),

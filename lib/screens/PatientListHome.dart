@@ -26,7 +26,7 @@ class Post {
 
 Future<List<Post>> fetchPosts(http.Client client) async {
   final response = await client.get('https://jsonplaceholder.typicode.com/posts');
-  //print(response.body);
+  print(response.body);
   return compute(parsePosts, response.body);
 }
 
@@ -44,14 +44,14 @@ class PatientListHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.brown[100],
       child: FutureBuilder<List<Post>>(
         future: fetchPosts(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
 
           return snapshot.hasData
-              ? CustomListView1(posts: snapshot.data)
+              ? CustomListView(posts: snapshot.data)
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -59,55 +59,12 @@ class PatientListHome extends StatelessWidget {
   }
 }
 
+
+
 class CustomListView extends StatelessWidget {
   final List<Post> posts;
 
   CustomListView({Key key, this.posts}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: posts.length,
-          padding: const EdgeInsets.all(15.0),
-          itemBuilder: (context, position) {
-            return Column(
-              children: <Widget>[
-                Divider(height: 10.0),
-                ListTile(
-                  title: Text(
-                    '${posts[position].title}',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    '${posts[position].body}',
-                    style: new TextStyle(
-                      fontSize: 18.0,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-
-                  onTap: () => { Navigator.of(context).pushNamed('/patientdetail',arguments:posts[position].id.toString())},
-
-                ),
-              ],
-            );
-          }),
-    );
-  }
-
-  void _onTapItem(BuildContext context, dynamic post) {
-    Scaffold
-        .of(context)
-        .showSnackBar(new SnackBar(content: new Text(post.id.toString() + ' - ' + post.title)));
-  }
-}
-
-class CustomListView1 extends StatelessWidget {
-  final List<Post> posts;
-
-  CustomListView1({Key key, this.posts}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -136,8 +93,12 @@ class CustomListView1 extends StatelessWidget {
                 // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
 
-                trailing:
-                Icon(Icons.keyboard_arrow_right, color: textboxcolor1, size: 30.0)),
+                trailing: new IconButton(
+                    icon: new Icon(Icons.keyboard_arrow_right, color: textboxcolor1, size: 30.0)),
+                    onTap: () => { Navigator.of(context).pushNamed('/patientdetail',arguments:posts[position].id.toString())}
+                )
+
+
           ),
 
         );
